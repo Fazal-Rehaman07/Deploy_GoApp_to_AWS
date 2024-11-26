@@ -51,8 +51,10 @@ func main() {
 	mongoURI := os.Getenv("MONGO_URI")
 	mongoClient, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(mongoURI))
 	if err != nil {
+		fmt.Printf("Erros Connecting to MongoDB\n")
 		log.Fatal(err)
 	}
+	fmt.Printf("Connected to MongoDB\n")
 	fs := http.FileServer(http.Dir("./templates"))
 	http.Handle("/", fs)
 	http.HandleFunc("/api/saveIP", saveIPHandler)
